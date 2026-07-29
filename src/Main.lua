@@ -70,4 +70,13 @@ player.CharacterAdded:Connect(function(character)
     end
 end)
 
+-- Tecla CTRL para esconder/mostrar GUI
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.LeftControl or input.KeyCode == Enum.KeyCode.RightControl then
+        guiElements.mainFrame.Visible = not guiElements.mainFrame.Visible
+    end
+end)
+
 Logger:info("Anti-AFK pronto para uso!")

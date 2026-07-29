@@ -82,6 +82,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/KHAOS-OC97/anti-afk-h
 
 ## 💡 Dicas
 
+### Esconder/Mostrar GUI
+
+Pressione **CTRL** (esquerdo ou direito) para esconder ou mostrar a GUI a qualquer momento.
+
+**Atalho:** CTRL (Esquerda ou Direita)
+
+### Mover GUI na Tela
+
+Clique e arraste a GUI com o mouse para movê-la pela tela. A GUI é totalmente arrastável!
+
 ### Executar Automaticamente ao Entrar no Jogo
 
 Se seu executor tem opção de "Startup Script" ou "Auto Execute":

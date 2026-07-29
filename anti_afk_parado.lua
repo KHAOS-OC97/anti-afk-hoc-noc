@@ -29,6 +29,8 @@ local function createGui()
     mainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
     mainFrame.BackgroundTransparency = 0.3
     mainFrame.BorderSizePixel = 0
+    mainFrame.Active = true
+    mainFrame.Draggable = true
     mainFrame.Parent = screenGui
     
     -- Canto arredondado
@@ -145,6 +147,15 @@ gui.button.MouseButton1Click:Connect(function()
         gui.status.Text = "Status: Inativo"
         gui.frame.UIStroke.Color = Color3.fromRGB(0, 255, 255)
         print("[Anti-AFK Parado] Desativado")
+    end
+end)
+
+-- Tecla CTRL para esconder/mostrar GUI
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.LeftControl or input.KeyCode == Enum.KeyCode.RightControl then
+        gui.frame.Visible = not gui.frame.Visible
     end
 end)
 

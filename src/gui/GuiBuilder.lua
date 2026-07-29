@@ -59,6 +59,8 @@ function GuiBuilder:createMainFrame()
     frame.BackgroundColor3 = Config.Theme.BackgroundColor
     frame.BackgroundTransparency = Config.Theme.BackgroundTransparency
     frame.BorderSizePixel = 0
+    frame.Active = true
+    frame.Draggable = true
     frame.Parent = self.screenGui
     
     -- Adiciona canto arredondado

@@ -45,6 +45,14 @@ Copie o conteúdo de: anti_afk_parado.lua
 
 ---
 
+## 🖱️ Controles da GUI
+
+- **Esconder GUI:** Pressione **CTRL**
+- **Mover GUI:** Clique e arraste com o mouse
+- **Mostrar GUI:** Pressione **CTRL** novamente
+
+---
+
 ## 📁 Estrutura do Projeto
 
 ```

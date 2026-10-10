@@ -65,7 +65,7 @@ local function createGui()
     statusLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
     statusLabel.TextScaled = true
     statusLabel.Font = Enum.Font.Gotham
-    statusLabel.Text = "Status: Inativo"
+    statusLabel.Text = "Status: Inactive"
     statusLabel.TextSize = 12
     statusLabel.Parent = mainFrame
     
@@ -79,7 +79,7 @@ local function createGui()
     button.TextColor3 = Color3.fromRGB(200, 200, 200)
     button.TextScaled = true
     button.Font = Enum.Font.GothamBold
-    button.Text = "ATIVAR"
+    button.Text = "Enable"
     button.BorderSizePixel = 0
     button.Parent = mainFrame
     
@@ -178,34 +178,39 @@ print("[Anti-AFK] Inicializando " .. GameName .. " v" .. Version)
 
 local gui = createGui()
 local antiAfkStop = nil
-local isActive = false
+local isActive = true
 
 gui.button.MouseButton1Click:Connect(function()
     isActive = not isActive
     
     if isActive then
         antiAfkStop = startAntiAfk(player)
-        gui.button.Text = "DESATIVAR"
-        gui.status.Text = "Status: Ativo ✓"
+        gui.button.Text = "Disable"
+        gui.status.Text = "Status: Active ✓"
         gui.frame.UIStroke.Color = Color3.fromRGB(0, 255, 0)
         print("[Anti-AFK] Ativado")
     else
         if antiAfkStop then
             antiAfkStop()
         end
-        gui.button.Text = "ATIVAR"
-        gui.status.Text = "Status: Inativo"
+        gui.button.Text = "Enable"
+        gui.status.Text = "Status: Inactive"
         gui.frame.UIStroke.Color = Color3.fromRGB(0, 255, 255)
         print("[Anti-AFK] Desativado")
     end
 end)
+
+antiAfkStop = startAntiAfk(player)
+gui.button.Text = "Disable"
+gui.status.Text = "Status: Active ✓"
+gui.frame.UIStroke.Color = Color3.fromRGB(0, 255, 0)
 
 -- Reiniciar após respawn
 player.CharacterAdded:Connect(function()
     if isActive then
         task.wait(0.5)
         antiAfkStop = startAntiAfk(player)
-        print("[Anti-AFK] Reiniciado após spawn")
+        print("[Anti-AFK] Restarted after respawn")
     end
 end)
 
@@ -218,5 +223,5 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
-print("[Anti-AFK] Pronto para uso!")
+print("[Anti-AFK] Ready")
 

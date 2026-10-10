@@ -97,7 +97,7 @@ function GuiBuilder:createStatusLabel(parent)
     statusLabel.TextColor3 = Config.Theme.TextColor
     statusLabel.TextScaled = true
     statusLabel.Font = Enum.Font.Gotham
-    statusLabel.Text = "Status: Aguardando..."
+    statusLabel.Text = "Status: Waiting..."
     statusLabel.TextSize = 12
     statusLabel.Parent = parent
     
@@ -114,7 +114,7 @@ function GuiBuilder:createToggleButton(parent, callback)
     button.TextColor3 = Config.Theme.TextColor
     button.TextScaled = true
     button.Font = Enum.Font.GothamBold
-    button.Text = "ATIVAR"
+    button.Text = "Enable"
     button.BorderSizePixel = 0
     button.Parent = parent
     

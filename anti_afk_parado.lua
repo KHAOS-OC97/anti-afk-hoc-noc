@@ -54,7 +54,7 @@ local function createGui()
     titleLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
     titleLabel.TextScaled = true
     titleLabel.Font = Enum.Font.GothamBold
-    titleLabel.Text = "🛡️ Anti-AFK Parado"
+    titleLabel.Text = "Anti-AFK (Idle)"
     titleLabel.Parent = mainFrame
     
     -- Status
@@ -66,7 +66,7 @@ local function createGui()
     statusLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
     statusLabel.TextScaled = true
     statusLabel.Font = Enum.Font.Gotham
-    statusLabel.Text = "Status: Inativo"
+    statusLabel.Text = "Status: Inactive"
     statusLabel.TextSize = 12
     statusLabel.Parent = mainFrame
     
@@ -80,7 +80,7 @@ local function createGui()
     button.TextColor3 = Color3.fromRGB(200, 200, 200)
     button.TextScaled = true
     button.Font = Enum.Font.GothamBold
-    button.Text = "ATIVAR"
+    button.Text = "Enable"
     button.BorderSizePixel = 0
     button.Parent = mainFrame
     
@@ -128,27 +128,32 @@ print("[Anti-AFK Parado] Inicializando " .. GameName .. " v" .. Version)
 
 local gui = createGui()
 local antiAfkStop = nil
-local isActive = false
+local isActive = true
 
 gui.button.MouseButton1Click:Connect(function()
     isActive = not isActive
     
     if isActive then
         antiAfkStop = startAntiAFK()
-        gui.button.Text = "DESATIVAR"
-        gui.status.Text = "Status: Ativo (parado) ✓"
+        gui.button.Text = "Disable"
+        gui.status.Text = "Status: Active (idle) ✓"
         gui.frame.UIStroke.Color = Color3.fromRGB(0, 255, 0)
         print("[Anti-AFK Parado] Ativado - Método: VirtualUser")
     else
         if antiAfkStop then
             antiAfkStop()
         end
-        gui.button.Text = "ATIVAR"
-        gui.status.Text = "Status: Inativo"
+        gui.button.Text = "Enable"
+        gui.status.Text = "Status: Inactive"
         gui.frame.UIStroke.Color = Color3.fromRGB(0, 255, 255)
         print("[Anti-AFK Parado] Desativado")
     end
 end)
+
+antiAfkStop = startAntiAFK()
+gui.button.Text = "Disable"
+gui.status.Text = "Status: Active (idle) ✓"
+gui.frame.UIStroke.Color = Color3.fromRGB(0, 255, 0)
 
 -- Tecla CTRL para esconder/mostrar GUI
 local UserInputService = game:GetService("UserInputService")
@@ -159,4 +164,4 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
-print("[Anti-AFK Parado] Pronto para uso!")
+print("[Anti-AFK Parado] Ready")

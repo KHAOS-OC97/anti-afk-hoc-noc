@@ -10,7 +10,7 @@ local Config = require(script.Parent.utils.Config)
 
 Logger:info("==========================================")
 Logger:info("Anti-AFK VirtualUser " .. Config.VERSION .. " iniciando...")
-Logger:info("Método: Não se mexe (apenas cliques)")
+Logger:info("Method: Idle event (no movement)")
 Logger:info("==========================================")
 
 -- Cria instância do Anti-AFK VirtualUser
@@ -21,12 +21,12 @@ local guiBuilder = GuiBuilder.new()
 local guiElements = guiBuilder:build(player:WaitForChild("PlayerGui"))
 
 -- Atualizar título
-guiElements.titleLabel.Text = "🛡️ Anti-AFK (Parado)"
+guiElements.titleLabel.Text = "Anti-AFK (Idle)"
 
 Logger:info("GUI criada com sucesso")
 
 -- Variável para controlar o estado
-local isActive = false
+local isActive = true
 
 -- Configurar botão de toggle
 guiElements.toggleButton.MouseButton1Click:Connect(function()
@@ -34,17 +34,24 @@ guiElements.toggleButton.MouseButton1Click:Connect(function()
     
     if isActive then
         afkController:start()
-        guiElements:updateButtonText("DESATIVAR")
-        guiElements:updateStatus("Ativo (parado)")
+        guiElements:updateButtonText("Disable")
+        guiElements:updateStatus("Active (idle)")
         guiBuilder:animateRgbBorder()
-        Logger:info("Anti-AFK ativado - Método: VirtualUser")
+        Logger:info("Anti-AFK enabled - Method: VirtualUser")
     else
         afkController:stop()
-        guiElements:updateButtonText("ATIVAR")
-        guiElements:updateStatus("Inativo")
+        guiElements:updateButtonText("Enable")
+        guiElements:updateStatus("Inactive")
         guiBuilder:stopAnimateRgbBorder()
-        Logger:info("Anti-AFK desativado")
+        Logger:info("Anti-AFK disabled")
     end
+end)
+
+guiElements:updateButtonText("Disable")
+guiElements:updateStatus("Active (idle)")
+afkController:start()
+task.spawn(function()
+    guiBuilder:animateRgbBorder()
 end)
 
 -- Atualizar GUI periodicamente
@@ -54,7 +61,7 @@ task.spawn(function()
         
         if isActive then
             local status = afkController:getStatus()
-            guiElements:updateStatus("Ativo (parado) ✓")
+            guiElements:updateStatus("Active (idle) ✓")
         end
     end
 end)
@@ -68,4 +75,4 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
-Logger:info("Anti-AFK pronto para uso!")
+Logger:info("Anti-AFK ready")

@@ -22,25 +22,38 @@ local guiElements = guiBuilder:build(player:WaitForChild("PlayerGui"))
 Logger:info("GUI criada com sucesso")
 
 -- Variável para controlar o estado
-local isActive = false
+local isActive = true
 
 -- Configurar botão de toggle
 guiElements.toggleButton.MouseButton1Click:Connect(function()
     isActive = not isActive
     
     if isActive then
-        antiAfkController:start()
-        guiElements:updateButtonText("DESATIVAR")
-        guiElements:updateStatus("Ativo")
-        guiBuilder:animateRgbBorder()
-        Logger:info("Anti-AFK ativado")
+        task.spawn(function()
+            antiAfkController:start()
+        end)
+        guiElements:updateButtonText("Disable")
+        guiElements:updateStatus("Active")
+        task.spawn(function()
+            guiBuilder:animateRgbBorder()
+        end)
+        Logger:info("Anti-AFK enabled")
     else
         antiAfkController:stop()
-        guiElements:updateButtonText("ATIVAR")
-        guiElements:updateStatus("Inativo")
+        guiElements:updateButtonText("Enable")
+        guiElements:updateStatus("Inactive")
         guiBuilder:stopAnimateRgbBorder()
-        Logger:info("Anti-AFK desativado")
+        Logger:info("Anti-AFK disabled")
     end
+end)
+
+guiElements:updateButtonText("Disable")
+guiElements:updateStatus("Active")
+task.spawn(function()
+    antiAfkController:start()
+end)
+task.spawn(function()
+    guiBuilder:animateRgbBorder()
 end)
 
 -- Atualizar GUI periodicamente
@@ -51,9 +64,9 @@ task.spawn(function()
         if isActive then
             local status = antiAfkController:getStatus()
             if status.character then
-                guiElements:updateStatus("Ativo ✓")
+                guiElements:updateStatus("Active ✓")
             else
-                guiElements:updateStatus("Aguardando spawn...")
+                guiElements:updateStatus("Waiting for character...")
             end
         end
     end
@@ -65,8 +78,10 @@ player.CharacterAdded:Connect(function(character)
     
     if isActive then
         antiAfkController = AntiAFK.new(player)
-        antiAfkController:start()
-        Logger:info("Anti-AFK reiniciado após spawn")
+        task.spawn(function()
+            antiAfkController:start()
+        end)
+        Logger:info("Anti-AFK restarted after respawn")
     end
 end)
 
@@ -79,4 +94,4 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
-Logger:info("Anti-AFK pronto para uso!")
+Logger:info("Anti-AFK ready")
